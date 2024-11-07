@@ -33,6 +33,8 @@ In this step, we will create a Fedora Server template VM with a static IP addres
    - On `template-fedora-server`, test connectivity to `sysadmin` by both IP and hostname:
      ```bash
      ping -c 4 192.168.122.1
+     ```
+     ```bash
      ping -c 4 sysadmin
      ```
      - **Explanation**: The `sysadmin` VM can be pinged by hostname because it uses DHCP, and libvirt’s DNS/DHCP service resolves the hostname automatically. However, because `template-fedora-server` has a static IP, other VMs can’t ping it by hostname unless you manually add an entry in the default virtual network’s DNS configuration.
@@ -51,9 +53,12 @@ In this step, we will create a Fedora Server template VM with a static IP addres
    - Restart the default network for changes to take effect:
      ```bash
      sudo virsh net-destroy default
+     ```
+
+     ```bash
      sudo virsh net-start default
      ```
-   - After this change, other VMs on the network should be able to ping `template-fedora-server` by hostname.
+   - After this change, other VMs connected to the network should restart (to use the new network instance) and be able to ping `template-fedora-server` by hostname.
 
 ### Step 02 - Clone `template-fedora-server`
 
@@ -76,6 +81,10 @@ In this step, we will clone the Fedora Server template VM to create a new VM ins
    - Use `nmcli` to set a new static IP for `server-0`:
      ```bash
      sudo nmcli con mod <connection_name> ipv4.addresses "192.168.122.3/24" ipv4.gateway "192.168.122.1" ipv4.dns "192.168.122.1" ipv4.method manual
+     ```
+
+     And restart the network connection:
+     ```bash
      sudo nmcli con up <connection_name>
      ```
      - Replace `<connection_name>` with the actual name of the network connection (e.g., `Wired connection 1`). You can find it using:
@@ -87,6 +96,8 @@ In this step, we will clone the Fedora Server template VM to create a new VM ins
    - On the `sysadmin` VM, ping both `template-fedora-server` and `server-0` to confirm they are reachable:
      ```bash
      ping -c 4 192.168.122.2  # template-fedora-server
+     ```
+     ```bash
      ping -c 4 192.168.122.3  # server-0
      ```
    - This demonstrates that both the template and cloned VM have unique IP addresses and are accessible on the network.
