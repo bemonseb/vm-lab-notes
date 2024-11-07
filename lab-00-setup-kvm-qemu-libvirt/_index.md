@@ -147,3 +147,6 @@ In this step, verify network connectivity between the host machine and the `sysa
    - Verify that the `tcpdump` command on both the host and VM terminals shows ICMP packets.
 
 This step demonstrates that the host machine and the VM are connected and can communicate over the default virtual network.
+
+Here's a drawio diagram of this initial setup.
+![network diagram](./network-diagram.drawio.png)
