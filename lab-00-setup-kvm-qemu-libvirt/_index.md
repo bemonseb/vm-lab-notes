@@ -148,5 +148,6 @@ In this step, verify network connectivity between the host machine and the `sysa
 
 This step demonstrates that the host machine and the VM are connected and can communicate over the default virtual network.
 
-Here's a drawio diagram of this initial setup.
+## Network Diagram
+Here's a drawio diagram of this initial network setup.
 ![network diagram](./network-diagram.drawio.png)
