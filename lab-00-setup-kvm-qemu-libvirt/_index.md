@@ -51,25 +51,15 @@ Configure the system to allow user management of the system-wide `libvirtd` inst
    ```bash
    sudo usermod -aG libvirt $(whoami)
    ```
-   - **Note**: You’ll need to log out and log back in for this change to take effect.
+   - **Note**: You’ll need to restart your computer for this change to take effect.
 
-2. Set the `VIRSH_DEFAULT_CONNECT_URI` environment variable to `qemu:///system` for system-wide access by default:
-   ```bash
-   echo 'export VIRSH_DEFAULT_CONNECT_URI=qemu:///system' >> ~/.bashrc
-   ```
-
-3. Apply the change by sourcing the `.bashrc` file:
-   ```bash
-   source ~/.bashrc
-   ```
-
-4. Ensure the default virtual network is running:
+2. Ensure the default virtual network is running:
    ```bash
    virsh net-start default
    ```
    - You should see a message indicating the network is active. If it's already running, you’ll see a message indicating it’s already active.
 
-5. Check the host machine’s network interfaces for the default network (virbr0):
+3. Check the host machine’s network interfaces for the default network (virbr0):
    ```bash
    ip a | grep virbr0
    ```
